@@ -1,0 +1,9 @@
+{"name": "express-represent"
+	, "version": "0.0.1"
+	, "private": false
+	, "dependencies": {
+      "express": "*"
+	  , "mime":"*"
+	  , "ejs":"*"
+  	}
+}

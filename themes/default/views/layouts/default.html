@@ -1,0 +1,50 @@
+<!doctype html>
+	<head>
+		<meta charset="utf-8"/>
+		<title><%- resource.title %></title>
+		<meta name="description" content="<%= resource.description %>" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="translucent black" />
+		<link rel="apple-touch-startup-image" href="/public/images/startup.png" />
+		<link rel="icon" type="image/png" href="/public/images/apple-touch-icon.png" />
+		<link rel="apple-touch-icon" href="/public/images/apple-touch-icon.png" />
+		<link rel="apple-touch-icon" href="/public/images/apple-touch-icon-ipad.png" sizes="72x72" />
+		<link rel="apple-touch-icon" href="/public/images/apple-touch-icon-iphone4.png" sizes="114x114" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<% resource.css.forEach(function(style){%><link rel="stylesheet" type="text/css" href="/public/css/<%- style %>.css" /><%}) %>
+	</head>
+	<body>
+		<header>
+			<h1><a href="/" title="Go Home">express-represent</a></h1>
+			<nav>
+				<a href="/about">About</a>
+			</nav>
+<a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub"></a>
+		</header>
+		<section>
+			<%- output %>
+		</section>
+		<footer>
+			<small></small>
+		</footer>
+	</body>
+	<% resource.js.forEach(function(script){%><script type="text/javascript" src="/public/js/<%= script %>.js"></script><%}) %>
+	
+	<% if(process.env.NODE_ENV === "development"){%>
+	<script>
+		(function(){
+			var interval = null;
+			var on = false;
+			if(!on) return;
+			window.addEventListener('load', function refresh(e){
+				interval = setInterval(function(){
+					window.location.href = window.location.href;
+				}, 5000);
+			});
+			window.addEventListener('unload', function clear(e){
+				clearInterval(interval);
+			});
+		})();
+	</script>
+	<%}%>
+</html>
