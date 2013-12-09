@@ -1,5 +1,10 @@
 {
 	"name": "website"
+	, "description":"Example website using express-represent."
+	, "repository":{
+		"type":"git"
+		, "url":"git://github.com/ijoey/express-represent.git/examples/website"
+	}
 	, "version": "0.0.2"
 	, "private": false
 	, "scripts":{
