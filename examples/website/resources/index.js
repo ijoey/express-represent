@@ -1,4 +1,4 @@
-var Resource = require('../lib/resource');
+var Resource = require('express-represent').Resource;
 module.exports = function index(app){
 	var self = new Resource();
 	self.title = "express-represent, represent requests via content negotiation.";

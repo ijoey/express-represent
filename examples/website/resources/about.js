@@ -1,4 +1,4 @@
-var Resource = require('../lib/resource');
+var Resource = require('express-represent').Resource;
 module.exports = function about(app){
 	var self = new Resource();
 	app.get("/about.:format?", function(req, resp, next){

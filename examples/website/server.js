@@ -6,11 +6,11 @@ var http = require('http');
 var app = express();
 var Fs = require('fs');
 var cachedResources = [];
-var rootPath = __dirname.replace('lib', '');
+var rootPath = __dirname;
 var resourcesFolder = rootPath + "/resources";
-var Represent = require("./lib/represent");
+var Represent = require("express-represent").Represent;
 function getEnvironmentConfig(){
-	return require('./lib/env.js');
+	return require('./env');
 }
 function ErrorMessage(error){
 	if(typeof error === Object || error === 500){
@@ -54,6 +54,12 @@ config.cookie = {
 	, key: process.env.COOKIE_KEY
 };
 Represent.themeRoot = process.env.THEME;
+Represent.contenTypesFolder = rootPath + '/contentTypes';
+Fs.readdirSync(Represent.contenTypesFolder).forEach(function(file) {
+	var contentType = require(Represent.contenTypesFolder + "/" + file);
+	Represent.contentTypes[contentType.key] = contentType;
+});
+
 process.argv.forEach(function(value, fileName, args){
 	if(/as:/.test(value)) runAsUser = /as\:([a-zA-Z-]+)/.exec(value)[1];
 	if(/port:/.test(value)) port = /port:(\d+)/.exec(value)[1];

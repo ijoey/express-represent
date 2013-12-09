@@ -12,6 +12,5 @@
 	}
 	, "dependencies": {
 		"mime":"git://github.com/broofa/node-mime.git#master"
-		, "ejs":"git://github.com/visionmedia/ejs.git#master"
   	}
 }
