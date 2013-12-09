@@ -7,7 +7,7 @@
 		, "url":"https://github.com/ijoey/express-represent"
 	}
 	, "scripts":{
-		"start":"server.js"
+		"start": "nodemon server.js"
 	}
 	, "engines":{
 		"node":"*"
