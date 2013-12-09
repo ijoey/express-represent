@@ -1,0 +1,17 @@
+{
+	"name": "example-represent"
+	, "version": "0.0.2"
+	, "private": false
+	, "scripts":{
+		"start": "nodemon server.js"
+	}
+	, "engines":{
+		"node":"*"
+	}
+	, "dependencies": {
+      "express": "git://github.com/visionmedia/express.git#master"
+	  , "mime":"git://github.com/broofa/node-mime.git#master"
+	  , "ejs":"git://github.com/visionmedia/ejs.git#master"
+	  , "express-represent":"git://github.com/ijoey/express-represent.git#master"
+  	}
+}
