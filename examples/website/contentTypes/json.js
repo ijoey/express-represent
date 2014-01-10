@@ -1,5 +1,3 @@
-var Fs = require('fs');
-var Ejs = require('ejs');
 function readFromFile(filePath, result, callback){
 	Fs.readFile(filePath, {encoding: "utf-8"}
 		, function(err, data){
@@ -18,15 +16,15 @@ module.exports = (function json(){
 		, execute: function(exists, filePath, represent, result, callback){
 			var output = null;
 			if(!exists){
-				callback(JSON.stringify(result.model));
+				callback(result, JSON.stringify(result.model));
 			}else{
 				readFromFile(filePath, result, function(output){
 					result.output = output;
 					var layout = represent.layoutRoot + result.resource.layout + ".json";
 					Fs.exists(layout, function(exists){
-						if(!exists) return callback(output);
+						if(!exists) return callback(result, output);
 						readFromFile(layout, result, function(output){
-							callback(output);					
+							callback(result, output);					
 						});
 					});
 				});

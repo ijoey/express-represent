@@ -1,5 +1,5 @@
 var Path = require('path');
-var Fs = require('fs');
+var Fs = require('graceful-fs');
 var Ejs = require('ejs');
 function readFromFile(filePath, result, callback){
 	Fs.readFile(filePath, {encoding: "utf-8"}
@@ -18,16 +18,16 @@ module.exports = (function html(){
 		, execute: function(exists, filePath, represent, result, callback){
 			if(!exists){
 				result.response.statusCode = 404;
-				return callback("Not found");
-			}
+				return callback(result, "Not found");
+			}			
 			readFromFile(filePath, result, function(output){
-				if(result.request.url.indexOf('.phtml') > -1) return callback(output);
+				if(result.request.url.indexOf('.phtml') > -1) return callback(result, output);
 				result.output = output;
 				var layout = represent.layoutRoot + result.resource.layout + ".html";
 				Fs.exists(layout, function(exists){
-					if(!exists) return callback(output);
+					if(!exists) return callback(result, output);
 					readFromFile(layout, result, function(output){
-						callback(output);					
+						callback(result, output);
 					});
 				});
 			});

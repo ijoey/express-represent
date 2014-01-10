@@ -1,5 +1,5 @@
 var Path = require('path');
-var Fs = require('fs');
+var Fs = require('graceful-fs');
 var Ejs = require('ejs');
 function readFromFile(filePath, result, callback){
 	Fs.readFile(filePath, {encoding: "utf-8"}
@@ -18,10 +18,10 @@ module.exports = (function html(){
 		, execute: function(exists, filePath, represent, result, callback){
 			if(!exists){
 				result.response.status.code = 404;
-				return callback("Not found.");
+				return callback(result, "Not found.");
 			}
 			readFromFile(filePath, result, function(output){
-				callback(output);					
+				callback(result, output);					
 			});
 		}
 	};

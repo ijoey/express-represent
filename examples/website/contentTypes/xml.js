@@ -1,5 +1,5 @@
 var Path = require('path');
-var Fs = require('fs');
+var Fs = require('graceful-fs');
 var Ejs = require('ejs');
 function readFromFile(filePath, result, callback){
 	Fs.readFile(filePath, {encoding: "utf-8"}
@@ -39,15 +39,15 @@ module.exports = (function xml(){
 				if(typeof result.model === 'string') output = '<value>' + result.model + '</value>';
 				if(output === null) output = toXml(result.model);
 				output = '<?xml version="1.0" encoding="UTF-8"?>\n<root>' + output + '</root>';
-				callback(output);
+				callback(result, output);
 			}else{
 				readFromFile(filePath, result, function(output){
 					result.output = output;
 					var layout = represent.layoutRoot + result.resource.layout + ".xml";
 					Fs.exists(layout, function(exists){
-						if(!exists) return callback(output);
+						if(!exists) return callback(result, output);
 						readFromFile(layout, result, function(output){
-							callback(output);					
+							callback(result, output);					
 						});
 					});
 				});
